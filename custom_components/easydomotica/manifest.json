@@ -1,0 +1,11 @@
+{
+  "domain": "easydomotica",
+  "name": "Easydomotica",
+  "documentation": "https://github.com/tuousername/easydomotica",
+  "issue_tracker": "https://github.com/tuousername/easydomotica/issues",
+  "codeowners": ["@tuousername"],
+  "requirements": [],
+  "dependencies": [],
+  "version": "1.1.0",
+  "iot_class": "local_push"
+}

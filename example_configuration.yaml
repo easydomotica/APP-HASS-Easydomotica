@@ -1,0 +1,5 @@
+# Configurazione Easydomotica — configuration.yaml
+# NON serve più username/password: l'accesso è legato all'utente HA "easydomotica"
+
+easydomotica:
+  smartthings_entry_id: ""   # Opzionale: puoi impostarlo direttamente dal pannello

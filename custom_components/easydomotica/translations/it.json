@@ -1,0 +1,9 @@
+{
+  "title": "Easydomotica",
+  "state": {
+    "_": {
+      "running": "In esecuzione",
+      "stopped": "Fermato"
+    }
+  }
+}
