@@ -1,0 +1,11 @@
+{
+  "domain": "easydomotica",
+  "name": "Easydomotica",
+  "documentation": "https://github.com/easydomotica/APP-HASS-Easydomotica",
+  "issue_tracker": "https://github.com/easydomotica/APP-HASS-Easydomotica/issues",
+  "codeowners": ["@easydomotica"],
+  "requirements": [],
+  "dependencies": ["frontend", "http"],
+  "version": "1.3.0",
+  "iot_class": "local_push"
+}

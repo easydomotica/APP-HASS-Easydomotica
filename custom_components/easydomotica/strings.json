@@ -1,0 +1,15 @@
+{
+  "title": "Easydomotica",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configura Easydomotica",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "smartthings_entry_id": "ID Integrazione SmartThings"
+        }
+      }
+    }
+  }
+}
