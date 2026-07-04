@@ -4,17 +4,14 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
-from homeassistant.components.http import StaticPathConfig
 
 import voluptuous as vol
 from homeassistant.components.frontend import async_register_built_in_panel
-from homeassistant.components.http import HomeAssistantView
-from homeassistant.components.http.static import CACHE_HEADERS
+from homeassistant.components.http import HomeAssistantView, StaticPathConfig
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.event import async_track_time_interval
-from aiohttp.web import json_response, FileResponse, Response
-from aiohttp import web
+from aiohttp.web import json_response
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,9 +19,6 @@ DOMAIN = "easydomotica"
 ALLOWED_USERNAME = "easydomotica"
 CONF_SMARTTHINGS_ENTRY_ID = "smartthings_entry_id"
 RELOAD_INTERVAL = timedelta(minutes=10)
-PANEL_URL = "easydomotica"
-PANEL_TITLE = "Easydomotica"
-PANEL_ICON = "mdi:home-automation"
 
 CONFIG_SCHEMA = vol.Schema(
     {
@@ -49,21 +43,18 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
         "last_reload": None,
     }
 
-    # Percorso ai file frontend
     frontend_path = Path(__file__).parent / "frontend"
 
-    # Registra file statici
-    await hass.http.async_register_static_paths([
-        StaticPathConfig(f"/{DOMAIN}", str(frontend_path), False)
-    ]
+    await hass.http.async_register_static_paths(
+        [StaticPathConfig(f"/{DOMAIN}", str(frontend_path), False)]
+    )
 
-    # Registra il pannello nella sidebar
     async_register_built_in_panel(
         hass,
         component_name="custom",
-        sidebar_title=PANEL_TITLE,
-        sidebar_icon=PANEL_ICON,
-        frontend_url_path=PANEL_URL,
+        sidebar_title="Easydomotica",
+        sidebar_icon="mdi:home-automation",
+        frontend_url_path=DOMAIN,
         config={
             "_panel_custom": {
                 "name": "easydomotica-panel",
@@ -75,7 +66,6 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
         require_admin=False,
     )
 
-    # Registra API
     hass.http.register_view(EasydomoticaWhoAmIView(hass))
     hass.http.register_view(EasydomoticaConfigView(hass))
     hass.http.register_view(EasydomoticaReloadView(hass))
@@ -84,7 +74,7 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     if smartthings_entry_id:
         await _start_smartthings_reload(hass, smartthings_entry_id)
 
-    _LOGGER.info("Easydomotica: pannello registrato con successo nella sidebar")
+    _LOGGER.info("Easydomotica: pannello registrato nella sidebar con successo")
     return True
 
 
